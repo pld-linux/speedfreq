@@ -9,8 +9,9 @@ Group:		Applications/System
 Source0:	http://www.goop.org/~jeremy/speedfreq/%{name}-%{version}.tar.gz
 # Source0-md5:	2d7fd41953f888469831a3fc0b622d42
 URL:		http://www.goop.org/~jeremy/speedfreq
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	python-devel >= %{py_version}
+BuildRequires:	sed >= 4.0
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Speedfreq is a package that manages the CPU performance policy. It is
@@ -49,7 +50,9 @@ sed -n '/^INST_OPTS/!p' -i Makefile
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install VERSION=%{version} \
+
+%{__make} install \
+	VERSION=%{version} \
 	PREFIX=$RPM_BUILD_ROOT/%{_prefix} \
 	INITD=$RPM_BUILD_ROOT/%{_initrddir} \
 	MAN=$RPM_BUILD_ROOT/%{_mandir} \
@@ -60,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES COPYING README TODO
+%doc CHANGES README TODO
 %attr(755,root,root) %{_sbindir}/speedfreqd
 %attr(755,root,root) %{_bindir}/speedfreq
 %attr(755,root,root) %{_prefix}/lib/libspeedfreq.so.*
