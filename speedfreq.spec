@@ -1,9 +1,8 @@
-# TODO: separate lib from init script (-devel shouldn't add any services)
 Summary:	CPU speed management daemon
 Summary(pl):	Demon do zarz±dzania prêdko¶ci± procesora
 Name:		speedfreq
 Version:	0.7.2
-Release:	0.5
+Release:	0.6
 License:	GPL
 Group:		Applications/System
 Source0:	http://www.goop.org/~jeremy/speedfreq/%{name}-%{version}.tar.gz
@@ -15,6 +14,7 @@ BuildRequires:	python-devel >= 1:2.4
 PreReq:		rc-scripts
 Requires(post):	/sbin/ldconfig
 Requires(post,preun):	/sbin/chkconfig
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,11 +29,19 @@ najczê¶ciej przydatny dla u¿ytkowników laptopów. Obs³uguje niewielk±
 liczbê przydatnych polityk pozwalaj±cych po¶wiêciæ wydajno¶æ systemu
 dla czasu ¿ycia baterii.
 
+%package libs
+Summary:	Libraries for %{name}
+Summary(pl):	Biblioteki dla %{name}
+Group:		Libraries
+
+%description libs
+The speedfreq-libs package contains the libraries for %{name} program.
+
 %package devel
 Summary:	Development headers for speedfreq
 Summary(pl):	Pliki nag³ówkowe dla speedfreq
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
 %description devel
 The speedfreq-devel package contains the header files necessary for
@@ -81,7 +89,6 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/speedfreqd
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/ldconfig
 /sbin/chkconfig --add speedfreqd
 if [ -f /var/lock/subsys/speedfreqd ]; then
         /etc/rc.d/init.d/speedfreqd restart >&2
@@ -97,20 +104,24 @@ if [ "$1" = "0" ]; then
         /sbin/chkconfig --del speedfreqd
 fi
 
-%postun -p /sbin/ldconfig
+%post libs -p /sbin/ldconfig
+%postun libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc CHANGES README TODO
 %attr(755,root,root) %{_sbindir}/speedfreqd
 %attr(755,root,root) %{_bindir}/speedfreq
-%attr(755,root,root) %{_libdir}/libspeedfreq.so.*.*.*
 %attr(754,root,root) /etc/rc.d/init.d/speedfreqd
 %{_mandir}/man[!3]/*
 
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libspeedfreq.so.*.*.*
+
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libspeedfreq.so
+#%attr(755,root,root) %{_libdir}/libspeedfreq.so
 %{_includedir}/*.h
 %{_mandir}/man3/*
 
