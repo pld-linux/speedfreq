@@ -12,7 +12,6 @@ Source1:	%{name}.init
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.goop.org/~jeremy/speedfreq
 BuildRequires:	python-devel >= %{py_version}
-BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -66,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGES README TODO
 %attr(755,root,root) %{_sbindir}/speedfreqd
 %attr(755,root,root) %{_bindir}/speedfreq
-%attr(755,root,root) %{_libdir}/libspeedfreq.so.*
+%attr(755,root,root) %{_libdir}/libspeedfreq.so.*.*.*
 %attr(754,root,root) /etc/rc.d/init.d/speedfreqd
 %{_mandir}/man[!3]/*
 
@@ -77,7 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files python
 %defattr(644,root,root,755)
-%{py_libdir}/*
+%attr(755,root,root) %{py_libdir}/*.so
+%{py_libdir}/*.py
 
 %post
 /sbin/ldconfig
