@@ -1,0 +1,64 @@
+--- speedfreq-0.7.2/Makefile.orig	2003-10-18 06:56:53.000000000 +0200
++++ speedfreq-0.7.2/Makefile	2005-03-19 09:22:50.000000000 +0100
+@@ -1,12 +1,10 @@
+ VERSION ?= 0.7.2
+ 
+-DISTFILES := $(shell bk sfiles -Ug)
+-
+ BASENAME := speedfreq-$(VERSION)
+ 
+ TARGETS := speedfreq speedfreqd $(SONAME) _speedfreqmodule.so
+ 
+-SONAME := libspeedfreq.so.1
++SONAME := libspeedfreq.so.1.0.0
+ 
+ PREFIX ?= /usr
+ BIN ?= $(PREFIX)/bin
+@@ -63,35 +61,22 @@
+ 		mv $@.new $@; \
+ 	fi
+ 
+-$(BASENAME).tar.gz: $(DISTFILES)
+-	rm -rf $(BASENAME)
+-	mkdir $(BASENAME)
+-	echo $(DISTFILES) | tr ' ' '\n' | \
+-	  xargs -i cp -a --parents {} $(BASENAME)
+-	tar czf $(BASENAME).tar.gz $(BASENAME)
+-	rm -rf $(BASENAME)
+-
+ clean:
+ 	rm -f $(TARGETS) *.o *.po *.so *~
+ 
+ install: $(TARGETS) libspeedfreq.so
+-	install $(INST_OPTS) -d -m 755 $(BIN) $(SBIN) $(LIB) $(INITD) \
+-		$(MAN)/man1 $(MAN)/man3 $(MAN)/man8 $(INC) \
+-		$(LIB)/python$(PY_VER)/site-packages
+-	install $(INST_OPTS) -m 755 speedfreq $(BIN)
+-	install $(INST_OPTS) -m 755 speedfreqd $(SBIN)
+-	install $(INST_OPTS) -m 755 scripts/speedfreq.rc $(INITD)/speedfreqd
+-	install $(INST_OPTS) -m 644 man/man1/*.1 $(MAN)/man1
+-	install $(INST_OPTS) -m 644 man/man3/*.3 $(MAN)/man3
+-	install $(INST_OPTS) -m 644 man/man8/*.8 $(MAN)/man8
+-	install $(INST_OPTS) -m 755 $(SONAME) $(LIB)
+-	ln -sf $(SONAME) $(LIB)/$(basename $(SONAME))
+-	chown root.root $(LIB)/$(basename $(SONAME))
+-	install $(INST_OPTS) -m 755 _speedfreqmodule.so \
+-		$(LIB)/python$(PY_VER)/site-packages
+-	install $(INST_OPTS) -m 644 speedfreq.py \
+-		$(LIB)/python$(PY_VER)/site-packages
+-	install $(INST_OPTS) -m 644 speedfreq.h $(INC)
++	install -d -m 755 $(DESTDIR){$(BIN),$(SBIN),$(LIB),$(INITD),$(MAN)/man1,$(MAN)/man3,$(MAN)/man8,$(INC),$(LIB)/python$(PY_VER)/site-packages}
++	install -m 755 speedfreq $(DESTDIR)$(BIN)
++	install -m 755 speedfreqd $(DESTDIR)$(SBIN)
++	install -m 644 man/man1/*.1 $(DESTDIR)$(MAN)/man1
++	install -m 644 man/man3/*.3 $(DESTDIR)$(MAN)/man3
++	install -m 644 man/man8/*.8 $(DESTDIR)$(MAN)/man8
++	install -m 755 $(SONAME) $(DESTDIR)$(LIB)
++	install -m 755 _speedfreqmodule.so \
++		$(DESTDIR)$(LIB)/python$(PY_VER)/site-packages
++	install -m 644 speedfreq.py \
++		$(DESTDIR)$(LIB)/python$(PY_VER)/site-packages
++	install -m 644 speedfreq.h $(DESTDIR)$(INC)
+ 
+ FORCE:
+ 
