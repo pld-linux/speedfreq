@@ -1,0 +1,59 @@
+#!/bin/sh
+# $Id$
+#
+# speedfreqd:	Starting and stopping the CPU speed management daemon.
+#
+# chkconfig: 2345 11 90
+# description:	speedfreqd is a daemon for controlling the speed of the CPU \
+#		on a laptop.
+#
+# processname: speedfreqd
+# pidfile: /var/run/speedfreqd.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+[ -x /usr/sbin/speedfreqd ] || exit 0
+[ -x /usr/bin/speedfreq ] || exit 0
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+  	if [ ! -f /var/lock/subsys/speedfreqd ]; then
+		# Start daemon.
+		msg_starting "speedfreqd"
+		daemon speedfreqd -u -P /var/run/speedfreqd.pid
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/speedfreqd
+	else
+		msg_already_running "speedfreqd"
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/speedfreqd ]; then
+		# Stop daemon.
+		msg_stopping "speedfreqd"
+		killproc speedfreqd
+		RETVAL=$?
+		rm -f /var/lock/subsys/speedfreqd >/dev/null 2>&1
+	else
+		msg_not_running "speedfreqd"
+	fi
+	;;
+  status)
+	status speedfreqd
+	RETVAL=$?
+	speedfreq -cs
+	;;
+  restart|force-reload)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL
