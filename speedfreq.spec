@@ -1,5 +1,5 @@
 Summary:	CPU speed management daemon
-Summary(pl):	Demon do zarz±dzania prêdko¶ci± procesora
+Summary(pl.UTF-8):   Demon do zarzÄ…dzania prÄ™dkoÅ›ciÄ… procesora
 Name:		speedfreq
 Version:	0.7.2
 Release:	0.6
@@ -23,15 +23,15 @@ most likely to be useful to laptop owners. It supports a small number
 of useful policies that you can use to trade off system performance
 against battery life.
 
-%description -l pl
-Speedfreq to pakiet zarz±dzaj±cy polityk± wydajno¶ci procesora. Jest
-najczê¶ciej przydatny dla u¿ytkowników laptopów. Obs³uguje niewielk±
-liczbê przydatnych polityk pozwalaj±cych po¶wiêciæ wydajno¶æ systemu
-dla czasu ¿ycia baterii.
+%description -l pl.UTF-8
+Speedfreq to pakiet zarzÄ…dzajÄ…cy politykÄ… wydajnoÅ›ci procesora. Jest
+najczÄ™Å›ciej przydatny dla uÅ¼ytkownikÃ³w laptopÃ³w. ObsÅ‚uguje niewielkÄ…
+liczbÄ™ przydatnych polityk pozwalajÄ…cych poÅ›wiÄ™ciÄ‡ wydajnoÅ›Ä‡ systemu
+dla czasu Å¼ycia baterii.
 
 %package libs
 Summary:	Libraries for %{name}
-Summary(pl):	Biblioteki dla %{name}
+Summary(pl.UTF-8):   Biblioteki dla %{name}
 Group:		Libraries
 
 %description libs
@@ -39,7 +39,7 @@ The speedfreq-libs package contains the libraries for %{name} program.
 
 %package devel
 Summary:	Development headers for speedfreq
-Summary(pl):	Pliki nag³ówkowe dla speedfreq
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe dla speedfreq
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
@@ -47,13 +47,13 @@ Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 The speedfreq-devel package contains the header files necessary for
 developing programs which use the speedfreq C library.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe potrzebne do tworzenia programów
-u¿ywaj±cych biblioteki C speedfreq.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe potrzebne do tworzenia programÃ³w
+uÅ¼ywajÄ…cych biblioteki C speedfreq.
 
 %package python
 Summary:	Python interface to the speedfreq client library
-Summary(pl):	Interfejs Pythona do biblioteki klienckiej speedfreq
+Summary(pl.UTF-8):   Interfejs Pythona do biblioteki klienckiej speedfreq
 Group:		Development/Libraries
 %pyrequires_eq	python-libs
 
@@ -61,8 +61,8 @@ Group:		Development/Libraries
 The speedfreq-python package contains a Python module that allows you
 to perform speedfreq client functions.
 
-%description python -l pl
-Ten pakiet zawiera modu³ Pythona pozwalaj±cy wywo³ywaæ funkcje
+%description python -l pl.UTF-8
+Ten pakiet zawiera moduÅ‚ Pythona pozwalajÄ…cy wywoÅ‚ywaÄ‡ funkcje
 klienckie speedfreq.
 
 %prep
