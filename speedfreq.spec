@@ -1,5 +1,5 @@
 Summary:	CPU speed management daemon
-Summary(pl.UTF-8):   Demon do zarządzania prędkością procesora
+Summary(pl.UTF-8):	Demon do zarządzania prędkością procesora
 Name:		speedfreq
 Version:	0.7.2
 Release:	0.6
@@ -31,7 +31,7 @@ dla czasu życia baterii.
 
 %package libs
 Summary:	Libraries for %{name}
-Summary(pl.UTF-8):   Biblioteki dla %{name}
+Summary(pl.UTF-8):	Biblioteki dla %{name}
 Group:		Libraries
 
 %description libs
@@ -39,7 +39,7 @@ The speedfreq-libs package contains the libraries for %{name} program.
 
 %package devel
 Summary:	Development headers for speedfreq
-Summary(pl.UTF-8):   Pliki nagłówkowe dla speedfreq
+Summary(pl.UTF-8):	Pliki nagłówkowe dla speedfreq
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 
@@ -53,7 +53,7 @@ używających biblioteki C speedfreq.
 
 %package python
 Summary:	Python interface to the speedfreq client library
-Summary(pl.UTF-8):   Interfejs Pythona do biblioteki klienckiej speedfreq
+Summary(pl.UTF-8):	Interfejs Pythona do biblioteki klienckiej speedfreq
 Group:		Development/Libraries
 %pyrequires_eq	python-libs
 
