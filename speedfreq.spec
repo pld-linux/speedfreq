@@ -67,7 +67,7 @@ klienckie speedfreq.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__make} \
